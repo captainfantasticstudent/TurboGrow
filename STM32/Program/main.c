@@ -90,16 +90,17 @@ int main(void) {			// glówna funkcja programu
 /* KONFIGURACJA TIM4 */
 	TIM4->ARR = 1000;
 	TIM4->CCR4 = 200;
-	TIM4->CCMR2 = TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2;
+	TIM4->CCMR2 = TIM_CCMR2_OC4M_1 | TIM_CCMR2_OC4M_2;	// Wyjscie kanalu 4 Timera jako wyjscie PWM
 	TIM4->CCER = TIM_CCER_CC4E;
 	TIM4->CR1  = TIM_CR1_CEN;
 
 /* KONFIGURACJA ADC */
 	//PA6 -> ADC12_IN6
-	GPIOA->MODER |= GPIO_MODER_MODER6_0 | GPIO_MODER_MODER6_1;
-	ADC1->CR2 |= ADC_CR2_ADON;
-	ADC1->SQR3 = 0x06;
-	ADC1->SMPR2 = ADC_SMPR2_SMP6_2;
+	GPIOA->MODER |= GPIO_MODER_MODER6_0 |
+									GPIO_MODER_MODER6_1;	// Konfiguracja pinu PA6 jako wejscia analogowego
+	ADC1->CR2 |= ADC_CR2_ADON;						// Wlaczenie przetwornika ADC1
+	ADC1->SQR3 = 0x06;										// Wybór kanalu IN6 przetwornika
+	ADC1->SMPR2 = ADC_SMPR2_SMP6_2;				// Próbkowanie wartosci napiecia równe 86 cykli
 
 /* KONFIGURACJA USART1 */
 	USART1->CR1 = USART_CR1_UE | USART_CR1_TE | USART_CR1_RE;		// USART2
